@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cursor Party</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div
+        v-cloak
+        v-for="(position, id) in onlineCursors"
+        :key="id"
+        :style="{ top: position.y + 'px', left: position.x + 'px' }"
+        class="absolute"
+      >
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M7.407 2.486c-.917-.612-2.251.046-2.152 1.238l.029.347a86.016 86.016 0 0 0 2.79 15.693c.337 1.224 2.03 1.33 2.544.195l2.129-4.697c.203-.449.697-.737 1.234-.68l5.266.564c1.209.13 2.063-1.346 1.094-2.281A90.863 90.863 0 0 0 7.703 2.684z"/></svg>
+        <p class="text-xs font-mono">id: {{ id }}</p>
+        <p class="text-xs font-mono">x: {{ position.x }} | y: {{ position.y }}</p>
+      </div>
+    </div>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

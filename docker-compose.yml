@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  caddy:
+    image: caddy:2.7.6
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - "$PWD/docker/caddy/Caddyfile:/etc/caddy/Caddyfile"
+      - "$PWD/web:/usr/share/caddy"
+  php:
+    build: "./ws"
+    restart: unless-stopped
+    ports:
+      - "9502:9502"

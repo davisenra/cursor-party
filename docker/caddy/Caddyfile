@@ -1,0 +1,5 @@
+localhost {
+	root * /usr/share/caddy
+	file_server
+	reverse_proxy /ws localhost:9502
+}
