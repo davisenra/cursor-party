@@ -1,4 +1,4 @@
-import { createApp, ref, onMounted } from "vue";
+import { createApp, ref, computed } from "vue";
 
 function throttle(func, delay) {
   let lastCall = 0;
@@ -13,14 +13,23 @@ function throttle(func, delay) {
 
 const app = createApp({
   setup() {
-    const onlineCursors = ref([]);
-    let ws;
+    const onlineCursors = ref();
+    const onlineCursorsCount = computed(() => {
+      if (!onlineCursors.value) return null;
+      // +1 because we need to account for the user itself
+      return Object.keys(onlineCursors.value).length + 1;
+    });
+    const isConnected = ref(false);
+    const isConnecting = ref(false);
+    const username = ref("");
 
-    onMounted(() => {
-      ws = new WebSocket("wss://cursor-party-ws.fly.dev/");
+    function joinWebsocket() {
+      isConnecting.value = true;
+      const ws = new WebSocket(`ws://localhost:9502?username=${username.value}`);
 
       ws.addEventListener("open", () => {
-        console.log("WebSocket connection established");
+        isConnecting.value = false;
+        isConnected.value = true;
       });
 
       ws.addEventListener("message", (message) => {
@@ -38,9 +47,16 @@ const app = createApp({
           ws.send(JSON.stringify({ x: ev.clientX, y: ev.clientY }));
         }, 50)
       );
-    });
+    }
 
-    return { onlineCursors };
+    return {
+      onlineCursors,
+      onlineCursorsCount,
+      isConnected,
+      isConnecting,
+      username,
+      joinWebsocket,
+    };
   },
 });
 

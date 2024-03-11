@@ -7,11 +7,15 @@
       "CursorParty\\": "src/"
     }
   },
+  "require": {
+    "php": ">=8.1",
+    "monolog/monolog": "^3.5",
+    "ext-swoole": ">=5.0"
+  },
   "require-dev": {
     "swoole/ide-helper": "~5.0.0",
-    "symfony/var-dumper": "^7.0"
-  },
-  "require": {
-    "monolog/monolog": "^3.5"
+    "symfony/var-dumper": "^7.0",
+    "phpstan/phpstan": "^1.10",
+    "laravel/pint": "^1.14"
   }
 }
