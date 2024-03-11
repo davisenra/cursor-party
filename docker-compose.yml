@@ -15,7 +15,5 @@ services:
   php:
     build: "./ws"
     restart: unless-stopped
-    volumes:
-      - "./ws:/var/www/ws"
     ports:
       - "9502:9502"

@@ -13,10 +13,9 @@ function throttle(func, delay) {
 
 const app = createApp({
   setup() {
-    const onlineCursors = ref();
+    const onlineCursors = ref({});
     const onlineCursorsCount = computed(() => {
       if (!onlineCursors.value) return null;
-      // +1 because we need to account for the user itself
       return Object.keys(onlineCursors.value).length + 1;
     });
     const isConnected = ref(false);
